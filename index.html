@@ -280,7 +280,7 @@
   
     <div class="article-meta">
       <a  href="/2018/07/16/Phonopy-study/" class="article-date">
-      <time datetime="2018-07-16T06:48:09.411Z" itemprop="datePublished">2018-07-16</time>
+      <time datetime="2018-07-16T08:05:58.440Z" itemprop="datePublished">2018-07-16</time>
 </a>
 
     </div>
@@ -306,7 +306,9 @@
       
           
         <p>Phonopy的学习主要参照官网的内容: <a href="https://atztogo.github.io/phonopy" target="_blank" rel="noopener">https://atztogo.github.io/phonopy</a></p>
-<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code></p>
+<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code><br><img src="/2018/07/16/Phonopy-study/phonopy_path.png" alt=""></p>
+<p>##Phonopy 使用##<br>依据官网的教程，使用VASP和Phonopy进行结构热力学性质和声子谱等一系列性质的计算，并同官网的结果相检验。</p>
+<h3 id="使用VASP-DFPT计算结构力常数"><a href="#使用VASP-DFPT计算结构力常数" class="headerlink" title="使用VASP-DFPT计算结构力常数"></a>使用VASP-DFPT计算结构力常数</h3><p>计算力常数是计算结构声子性质的第一步。<br>Step 1:准备需要计算到结构的VASP输入文件。（一般为已经优化完成的结构）<br>==POSCAR-unitcell==<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Na Cl</span><br><span class="line">   1.00000000000000</span><br><span class="line">     5.6903014761756712    0.0000000000000000    0.0000000000000000</span><br><span class="line">     0.0000000000000000    5.6903014761756712    0.0000000000000000</span><br><span class="line">     0.0000000000000000    0.0000000000000000    5.6903014761756712</span><br><span class="line">   4   4</span><br><span class="line">Direct</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.5000000000000000</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
