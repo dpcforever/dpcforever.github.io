@@ -280,7 +280,7 @@
   
     <div class="article-meta">
       <a  href="/2018/07/16/Phonopy-study/" class="article-date">
-      <time datetime="2018-07-16T13:43:29.001Z" itemprop="datePublished">2018-07-16</time>
+      <time datetime="2018-07-16T14:07:58.208Z" itemprop="datePublished">2018-07-16</time>
 </a>
 
     </div>
@@ -314,9 +314,9 @@
 <p><font color="#00ffff">INCAR</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PREC = Accurate</span><br><span class="line">ENCUT = 500</span><br><span class="line">IBRION = 8</span><br><span class="line">EDIFF = 1.0e-08</span><br><span class="line">IALGO = 38</span><br><span class="line">ISMEAR = 0; SIGMA = 0.01</span><br><span class="line">LREAL = .FALSE.</span><br><span class="line">ADDGRID = .TRUE.</span><br><span class="line">LWAVE = .FALSE.</span><br><span class="line">LCHARG = .FALSE.</span><br></pre></td></tr></table></figure></p>
 <p>准备好KPOINTS和POTCAR文件就可以进行VASP计算了，计算后用下面的命令检查是否存在虚頻（此处存在虚頻，是因为我们直接用的官网的POSCAR，该结构没有用我们计算用到VASP版本进行优化）。<br><code>grep &#39;cm-1&#39; OUTCAR</code><br>Step 3: 用下面到命令从输出文件vasprun.xml得到包含力常数的文件FORCE_CONSTANTS。<br><code>phonopy --fc vasprun.xml</code></p>
 <h3 id="计算声子谱"><a href="#计算声子谱" class="headerlink" title="计算声子谱"></a>计算声子谱</h3><p>Step 1: 新建band.conf文件，设定计算声子谱的参数。</p>
-<p><font color="#00ffff">band.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">PRIMITIVE_AXIS = 0 0.5 0.5 0.5 0 0.5 0.5 0.5 0</span><br><span class="line">FORCE_CONSTANTS = READ</span><br><span class="line">BAND = 	 0.00  0.00  0.00 0.50  0.00  0.00 0.50  0.50  0.00 0.00  0.00  0.00 0.50  0.50  0.50 </span><br><span class="line">BAND_POINTS = 200</span><br></pre></td></tr></table></figure></p>
-<p>Step 2: 输入下面命令计算声子谱。<br><code>phonopy --dim=&quot;2 2 2&quot; -c POSCAR-unitcell band.conf</code><br>Step 3: 通过下面两个命令使用phonopy-bandplot脚本可直接画出声子谱或得到文本格式的声子谱数据。<br><code>phonopy-bandplot</code><br><code>phonopy-bandplot --gnuplot &gt;PhononBAND.dat</code><br><img src="/2018/07/16/Phonopy-study/NaCl_phonon.png" alt=""></p>
-
+<p><font color="#00ffff">band.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">PRIMITIVE_AXIS = 0 0.5 0.5 0.5 0 0.5 0.5 0.5 0</span><br><span class="line">FORCE_CONSTANTS = READ</span><br><span class="line">BAND = 	 0.00  0.00  0.00 0.50  0.00  0.00 0.50  0.50  0.00 0.00  0.00  0.00 0.50  0.50  0.50</span><br><span class="line">BAND_POINTS = 200</span><br></pre></td></tr></table></figure></p>
+<p>Step 2: 输入下面命令计算声子谱。<br><code>phonopy --dim=&quot;2 2 2&quot; -c POSCAR-unitcell band.conf</code><br>Step 3: 通过下面两个命令使用phonopy-bandplot脚本可直接画出声子谱或得到文本格式的声子谱数据。<br><code>phonopy-bandplot</code><br><code>phonopy-bandplot --gnuplot &gt;PhononBAND.dat</code></p>
+<div align="center"><br><img src="/2018/07/16/Phonopy-study/NaCl_phonon.png" width="80%" height="80%"><br></div>
       
     </div>
     
