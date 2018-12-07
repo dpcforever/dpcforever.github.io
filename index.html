@@ -279,8 +279,8 @@
     <article id="post-Phonopy-study" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2018/07/17/Phonopy-study/" class="article-date">
-      <time datetime="2018-07-16T16:29:58.141Z" itemprop="datePublished">2018-07-17</time>
+      <a  href="/2018/12/07/Phonopy-study/" class="article-date">
+      <time datetime="2018-12-07T01:08:38.918Z" itemprop="datePublished">2018-12-07</time>
 </a>
 
     </div>
@@ -294,7 +294,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/2018/07/17/Phonopy-study/">Phonopy study</a>
+      <a  class="article-title" href="/2018/12/07/Phonopy-study/">Phonopy study</a>
     </h1>
   
 
@@ -306,7 +306,7 @@
       
           
         <p>Phonopy的学习主要参照官网的内容: <a href="https://atztogo.github.io/phonopy" target="_blank" rel="noopener">https://atztogo.github.io/phonopy</a></p>
-<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code><br><img src="/2018/07/17/Phonopy-study/phonopy_path.png" alt=""></p>
+<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code><br><img src="/2018/12/07/Phonopy-study/phonopy_path.png" alt=""></p>
 <h2 id="Phonopy-使用"><a href="#Phonopy-使用" class="headerlink" title="Phonopy 使用"></a>Phonopy 使用</h2><p>依据官网的教程，使用VASP和Phonopy进行结构热力学性质和声子谱等一系列性质的计算，并同官网的结果相检验。</p>
 <h3 id="使用VASP-DFPT计算结构力常数"><a href="#使用VASP-DFPT计算结构力常数" class="headerlink" title="使用VASP-DFPT计算结构力常数"></a>使用VASP-DFPT计算结构力常数</h3><p>计算力常数是计算结构声子性质的第一步。<br>Step 1:准备需要计算到结构的VASP输入文件，此处命名为POSCAR-unitcell。（一般为已经优化完成的结构）</p>
 <p><font color="#00ffff">POSCAR-unitcell</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NaCl</span><br><span class="line">   1.00000000000000</span><br><span class="line">     5.6903014761756712    0.0000000000000000    0.0000000000000000</span><br><span class="line">     0.0000000000000000    5.6903014761756712    0.0000000000000000</span><br><span class="line">     0.0000000000000000    0.0000000000000000    5.6903014761756712</span><br><span class="line">   4   4</span><br><span class="line">Direct</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.5000000000000000</span><br></pre></td></tr></table></figure></p>
@@ -317,10 +317,10 @@
 <p><font color="#00ffff">band.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">PRIMITIVE_AXIS = 0 0.5 0.5 0.5 0 0.5 0.5 0.5 0</span><br><span class="line">FORCE_CONSTANTS = READ</span><br><span class="line">BAND = 	 0.00  0.00  0.00 0.50  0.00  0.00 0.50  0.50  0.00 0.00  0.00  0.00 0.50  0.50  0.50</span><br><span class="line">BAND_POINTS = 200</span><br></pre></td></tr></table></figure></p>
 <p>Step 2: 输入下面命令计算声子谱。</p>
 <p>Step 3: 通过下面两个命令使用phonopy-bandplot脚本可直接画出声子谱或得到文本格式的声子谱数据。<br><code>phonopy-bandplot</code><br><code>phonopy-bandplot --gnuplot &gt;PhononBAND.dat</code></p>
-<p><div align="center"><br><img src="/2018/07/17/Phonopy-study/NaCl_phonon.png" alt=""><br></div></p>
+<p><div align="center"><br><img src="/2018/12/07/Phonopy-study/NaCl_phonon.png" alt=""><br></div></p>
 <h3 id="计算声子谱态密度和体系热力学性质"><a href="#计算声子谱态密度和体系热力学性质" class="headerlink" title="计算声子谱态密度和体系热力学性质"></a>计算声子谱态密度和体系热力学性质</h3><p>step 1:新建mesh.conf文件。</p>
 <p><font color="#00ffff">mesh.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">MP = 8 8 8</span><br><span class="line">FORCE_CONSTANTS = READ</span><br></pre></td></tr></table></figure></p>
-<p>step 2:使用下面的命令计算体系声子谱的态密度。<br><code>phonopy -p mesh.conf -c POSCAR-unitcell</code><br><img src="/2018/07/17/Phonopy-study/phonon_DOS.png" alt=""><br>step 3:使用下面的命令计算体系的热力学性质。<br><code>phonopy -t -p mesh.conf -c POSCAR-unitcell &gt;thermal_properties.dat</code><br><img src="/2018/07/17/Phonopy-study/thermal_properties.png" alt=""></p>
+<p>step 2:使用下面的命令计算体系声子谱的态密度。<br><code>phonopy -p mesh.conf -c POSCAR-unitcell</code><br><img src="/2018/12/07/Phonopy-study/phonon_DOS.png" alt=""><br>step 3:使用下面的命令计算体系的热力学性质。<br><code>phonopy -t -p mesh.conf -c POSCAR-unitcell &gt;thermal_properties.dat</code><br><img src="/2018/12/07/Phonopy-study/thermal_properties.png" alt=""></p>
 
       
     </div>
@@ -356,8 +356,8 @@
     <article id="post-enjoy-life" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2018/07/15/enjoy-life/" class="article-date">
-      <time datetime="2018-07-15T09:15:04.607Z" itemprop="datePublished">2018-07-15</time>
+      <a  href="/2018/12/07/enjoy-life/" class="article-date">
+      <time datetime="2018-12-07T01:08:38.916Z" itemprop="datePublished">2018-12-07</time>
 </a>
 
     </div>
@@ -371,7 +371,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/2018/07/15/enjoy-life/">Enjoy Life</a>
+      <a  class="article-title" href="/2018/12/07/enjoy-life/">Enjoy Life</a>
     </h1>
   
 
