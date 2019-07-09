@@ -12,18 +12,18 @@
   <meta name="description" content="Phonopy的学习主要参照官网的内容: https://atztogo.github.io/phonopy Phonopy 安装Step 1: 安装Phonopy 所需的phonon环境包。sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5pyStep 2: 在 https:/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Phonopy study">
-<meta property="og:url" content="http://yoursite.com/2019/07/09/Phonopy-study/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/06/10/Phonopy-study/index.html">
 <meta property="og:site_name" content="Physics in mind heart and soul">
 <meta property="og:description" content="Phonopy的学习主要参照官网的内容: https://atztogo.github.io/phonopy Phonopy 安装Step 1: 安装Phonopy 所需的phonon环境包。sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5pyStep 2: 在 https:/">
 <meta property="og:locale" content="Chinese">
-<meta property="og:image" content="http://yoursite.com/2019/07/09/Phonopy-study/phonopy_path.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/09/Phonopy-study/phonon_DOS.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/09/Phonopy-study/thermal_properties.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/Phonopy-study/phonopy_path.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/Phonopy-study/phonon_DOS.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/10/Phonopy-study/thermal_properties.png">
 <meta property="og:updated_time" content="2019-05-30T05:35:56.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Phonopy study">
 <meta name="twitter:description" content="Phonopy的学习主要参照官网的内容: https://atztogo.github.io/phonopy Phonopy 安装Step 1: 安装Phonopy 所需的phonon环境包。sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5pyStep 2: 在 https:/">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/09/Phonopy-study/phonopy_path.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/10/Phonopy-study/phonopy_path.png">
   
     <link rel="alternative" href="/atom.xml" title="Physics in mind heart and soul" type="application/atom+xml">
   
@@ -272,8 +272,8 @@
       <div class="body-wrap"><article id="post-Phonopy-study" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2019/07/09/Phonopy-study/" class="article-date">
-      <time datetime="2019-07-09T04:21:00.857Z" itemprop="datePublished">2019-07-09</time>
+      <a  href="/2019/06/10/Phonopy-study/" class="article-date">
+      <time datetime="2019-06-10T04:56:54.159Z" itemprop="datePublished">2019-06-10</time>
 </a>
 
     </div>
@@ -310,7 +310,7 @@
       
           
         <p>Phonopy的学习主要参照官网的内容: <a href="https://atztogo.github.io/phonopy" target="_blank" rel="noopener">https://atztogo.github.io/phonopy</a></p>
-<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code><br><img src="/2019/07/09/Phonopy-study/phonopy_path.png" alt=""></p>
+<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code><br><img src="/2019/06/10/Phonopy-study/phonopy_path.png" alt=""></p>
 <h2 id="Phonopy-使用"><a href="#Phonopy-使用" class="headerlink" title="Phonopy 使用"></a>Phonopy 使用</h2><p>依据官网的教程，使用VASP和Phonopy进行结构热力学性质和声子谱等一系列性质的计算，并同官网的结果相检验。</p>
 <h3 id="使用VASP-DFPT计算结构力常数"><a href="#使用VASP-DFPT计算结构力常数" class="headerlink" title="使用VASP-DFPT计算结构力常数"></a>使用VASP-DFPT计算结构力常数</h3><p>计算力常数是计算结构声子性质的第一步。<br>Step 1:准备需要计算到结构的VASP输入文件，此处命名为POSCAR-unitcell。（一般为已经优化完成的结构）</p>
 <p><font color="#00ffff">POSCAR-unitcell</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NaCl</span><br><span class="line">   1.00000000000000</span><br><span class="line">     5.6903014761756712    0.0000000000000000    0.0000000000000000</span><br><span class="line">     0.0000000000000000    5.6903014761756712    0.0000000000000000</span><br><span class="line">     0.0000000000000000    0.0000000000000000    5.6903014761756712</span><br><span class="line">   4   4</span><br><span class="line">Direct</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.5000000000000000</span><br></pre></td></tr></table></figure></p>
@@ -326,7 +326,7 @@
 </div></p>
 <h3 id="计算声子谱态密度和体系热力学性质"><a href="#计算声子谱态密度和体系热力学性质" class="headerlink" title="计算声子谱态密度和体系热力学性质"></a>计算声子谱态密度和体系热力学性质</h3><p>step 1:新建mesh.conf文件。</p>
 <p><font color="#00ffff">mesh.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">MP = 8 8 8</span><br><span class="line">FORCE_CONSTANTS = READ</span><br></pre></td></tr></table></figure></p>
-<p>step 2:使用下面的命令计算体系声子谱的态密度。<br><code>phonopy -p mesh.conf -c POSCAR-unitcell</code><br><img src="/2019/07/09/Phonopy-study/phonon_DOS.png" alt=""><br>step 3:使用下面的命令计算体系的热力学性质。<br><code>phonopy -t -p mesh.conf -c POSCAR-unitcell &gt;thermal_properties.dat</code><br><img src="/2019/07/09/Phonopy-study/thermal_properties.png" alt=""></p>
+<p>step 2:使用下面的命令计算体系声子谱的态密度。<br><code>phonopy -p mesh.conf -c POSCAR-unitcell</code><br><img src="/2019/06/10/Phonopy-study/phonon_DOS.png" alt=""><br>step 3:使用下面的命令计算体系的热力学性质。<br><code>phonopy -t -p mesh.conf -c POSCAR-unitcell &gt;thermal_properties.dat</code><br><img src="/2019/06/10/Phonopy-study/thermal_properties.png" alt=""></p>
 
       
     </div>
@@ -335,13 +335,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2019/07/09/Phonopy-study/">Phonopy study</a></p>
+        <p><span>本文标题:</span><a  href="/2019/06/10/Phonopy-study/">Phonopy study</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 dpcforever 的个人博客">dpcforever</a></p>
-        <p><span>发布时间:</span>2019年07月09日 - 12时21分</p>
+        <p><span>发布时间:</span>2019年06月10日 - 12时56分</p>
         <p><span>最后更新:</span>2019年05月30日 - 13时35分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/07/09/Phonopy-study/" title="Phonopy study">http://yoursite.com/2019/07/09/Phonopy-study/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/07/09/Phonopy-study/　　作者: dpcforever" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/06/10/Phonopy-study/" title="Phonopy study">http://yoursite.com/2019/06/10/Phonopy-study/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/06/10/Phonopy-study/　　作者: dpcforever" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -352,9 +352,18 @@
 
 <nav id="article-nav">
   
+    <a  href="/2019/06/10/enjoy-life/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Enjoy Life
+        
+      </div>
+    </a>
   
-    <a  href="/2019/07/09/enjoy-life/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Enjoy Life</div>
+  
+    <a  href="/2019/06/10/blog-construction/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">博客搭建与主题来源</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -439,16 +448,18 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a  href="/2019/06/10/enjoy-life/" title="上一篇: Enjoy Life">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2019/07/09/enjoy-life/" title="下一篇: Enjoy Life">
+            <a  href="/2019/06/10/blog-construction/" title="下一篇: 博客搭建与主题来源">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/07/09/Phonopy-study/">Phonopy study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/09/enjoy-life/">Enjoy Life</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/09/didv/">Simulation of dI/dV spectrum and mapping</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/09/blog-construction/">博客搭建与主题来源</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/09/LEEDpat/">晶体表面吸附物LEED表征</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/10/didv/">Simulation of dI/dV spectrum and mapping</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/10/enjoy-life/">Enjoy Life</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/10/Phonopy-study/">Phonopy study</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/10/blog-construction/">博客搭建与主题来源</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/10/LEEDpat/">晶体表面吸附物LEED表征</a></li></ul>
     
 <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 
