@@ -269,11 +269,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-LEEDpat" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Phonopy-study" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2019/07/09/LEEDpat/" class="article-date">
-      <time datetime="2019-07-09T05:30:49.365Z" itemprop="datePublished">2019-07-09</time>
+      <a  href="/2019/07/09/Phonopy-study/" class="article-date">
+      <time datetime="2019-07-09T13:36:59.564Z" itemprop="datePublished">2019-07-09</time>
 </a>
 
     </div>
@@ -287,7 +287,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/2019/07/09/LEEDpat/">晶体表面吸附物LEED表征</a>
+      <a  class="article-title" href="/2019/07/09/Phonopy-study/">Phonopy study</a>
     </h1>
   
 
@@ -298,13 +298,27 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="使用LEEDpat通过吸附矩阵模拟LEED图案"><a href="#使用LEEDpat通过吸附矩阵模拟LEED图案" class="headerlink" title="使用LEEDpat通过吸附矩阵模拟LEED图案"></a>使用LEEDpat通过吸附矩阵模拟LEED图案</h2><p>LEEDpat软件可以直接从网上下载，直接安装即可。<br>使用方法：   </p>
-<ul>
-<li>根据表面基底晶格的对称性设定2D lattice/group, 如fcc(111)面的空间群为p3m1。   </li>
-<li>根据分子或原子的吸附矩阵设定 Matrix。</li>
-<li>勾选Include domains，Paint domains。</li>
-<li>放大或者缩小模拟的LEED pattern使尺寸合适。<br>重复文献<a href="https:/pubs.rsc.org/en/content/articlelanding/2018/NR/C8NR02237B#!divAbstract" target="_blank" rel="noopener">Re-evaluating how charge transfer modifies the conformation of adsorbed molecules</a>中的LEED模拟, 结果如图所示:<br><img src="/2019/07/09/LEEDpat/LEED_pat.png" alt=""></li>
-</ul>
+        <p>Phonopy的学习主要参照官网的内容: <a href="https://atztogo.github.io/phonopy" target="_blank" rel="noopener">https://atztogo.github.io/phonopy</a></p>
+<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code><br><img src="/2019/07/09/Phonopy-study/phonopy_path.png" alt=""></p>
+<h2 id="Phonopy-使用"><a href="#Phonopy-使用" class="headerlink" title="Phonopy 使用"></a>Phonopy 使用</h2><p>依据官网的教程，使用VASP和Phonopy进行结构热力学性质和声子谱等一系列性质的计算，并同官网的结果相检验。</p>
+<h3 id="有限位移方法计算结构力常数"><a href="#有限位移方法计算结构力常数" class="headerlink" title="有限位移方法计算结构力常数"></a>有限位移方法计算结构力常数</h3><p>计算力常数是计算结构声子性质的第一步，计算力常数的方法有两种：有限位移方法和密度泛函微扰理论。有限位移方法通过计算结构中各个原子微小位移前后能量的变化获得结构力常数。<br>Step 1:准备需要计算到结构的VASP输入文件，此处命名为POSCAR-unitcell。（一般为已经优化完成的结构）</p>
+<p><font color="#00ffff">POSCAR-unitcell</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NaCl</span><br><span class="line">   1.00000000000000</span><br><span class="line">     5.6903014761756712    0.0000000000000000    0.0000000000000000</span><br><span class="line">     0.0000000000000000    5.6903014761756712    0.0000000000000000</span><br><span class="line">     0.0000000000000000    0.0000000000000000    5.6903014761756712</span><br><span class="line">   4   4</span><br><span class="line">Direct</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.5000000000000000</span><br></pre></td></tr></table></figure></p>
+<p>使用下面命令生成2x2x2的超胞SPOSCAR文件（扩胞是消除虚频常用的方法），包含位移信息的disp.yaml文件，以及对应各个原子各个方向位移后的POSCAR-001 … POSCAR-00N文件（如无对称性，这些文件的数量等于POSCAR中原子数量的6倍，对应于各个原子三个自由度上正负方向的位移）。<br><code>phonopy -d --dim=&quot;2 2 2&quot; -c POSCAR-unitcell</code><br>step2：将各个POSCAR-001 … POSCAR-00N分别作为POSCAR用VASP进行静态计算(用shell编个循环语句的shell脚本计算即可)，得到vasprun.xml-001 … vasprun.xml-00N 文件。</p>
+<p><font color="#00ffff">静态计算INCAR</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PREC = Accurate</span><br><span class="line">IBRION = -1</span><br><span class="line">ENCUT = 500</span><br><span class="line">EDIFF = 1.0e-08</span><br><span class="line">ISMEAR = 0; SIGMA = 0.01</span><br><span class="line">IALGO = 48</span><br><span class="line">LREAL = .FALSE.</span><br><span class="line">LWAVE = .FALSE.</span><br><span class="line">LCHARG = .FALSE</span><br></pre></td></tr></table></figure></p>
+<p>step3：再用phonopy处理即可得到力常数FORCE_SETS文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">phonopy -f vasprun.xml-&#123;001..00N&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="密度泛函微扰理论计算结构力常数"><a href="#密度泛函微扰理论计算结构力常数" class="headerlink" title="密度泛函微扰理论计算结构力常数"></a>密度泛函微扰理论计算结构力常数</h3><p>用VASP-DFPT计算力常数更为简单，同时还能给出体系简正振动频率，伯恩有效电荷，压电常数等信息（LEPSILON = .TRUE.），所以我们计算的时候主要采取这种方法。<br>step1：将超胞SPOSCAR重命名为POSCAR作为VASP的输入文件计算体系力常数（用超胞进行计算能获得更准确到结果）。<br><code>mv SPOSCAR POSCAR</code><br>Step 2: 用IBRION = 8 和 NSW = 1计算体系力常数。为使受力计算更准确，提高电子步迭代收敛要求（EDIFF = 1E-8，并将是空间积分LREAL设为FALSE。具体INCAR如下。   </p>
+<p><font color="#00ffff">INCAR</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PREC = Accurate</span><br><span class="line">ENCUT = 500</span><br><span class="line">IBRION = 8</span><br><span class="line">EDIFF = 1.0e-08</span><br><span class="line">IALGO = 38</span><br><span class="line">ISMEAR = 0; SIGMA = 0.01</span><br><span class="line">LREAL = .FALSE.</span><br><span class="line">ISYM = 0</span><br><span class="line">ADDGRID = .TRUE.</span><br><span class="line">LWAVE = .FALSE.</span><br><span class="line">LCHARG = .FALSE.</span><br><span class="line">LEPSILON = .TRUE.</span><br></pre></td></tr></table></figure></p>
+<p>准备好KPOINTS和POTCAR文件就可以进行VASP计算了，计算后用下面的命令检查是否存在虚頻（此处存在虚頻，是因为我们直接用的官网的POSCAR，该结构没有用我们计算用到参数和赝势进行优化）。<br><code>grep &#39;cm-1&#39; OUTCAR</code><br>Step 3: 用下面到命令从输出文件vasprun.xml得到包含力常数的文件FORCE_CONSTANTS。<br><code>phonopy --fc vasprun.xml</code></p>
+<h3 id="计算声子谱"><a href="#计算声子谱" class="headerlink" title="计算声子谱"></a>计算声子谱</h3><p>Step 1: 新建band.conf文件，设定计算声子谱的参数。由于我们关心的是POSCAR-unitcell的声子性质，而计算受力时是用超胞进行计算，所以在band.conf中需要注明DIM = 2 2 2，而在step2和step3计算时用参数 -c POSCAR-unitcell使计算的结果对应扩胞前的结构。</p>
+<p><font color="#00ffff">band.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">PRIMITIVE_AXIS = 0 0.5 0.5 0.5 0 0.5 0.5 0.5 0</span><br><span class="line">FORCE_CONSTANTS = READ</span><br><span class="line">BAND = 	 0.00  0.00  0.00 0.50  0.00  0.00 0.50  0.50  0.00 0.00  0.00  0.00 0.50  0.50  0.50</span><br><span class="line">BAND_POINTS = 200</span><br></pre></td></tr></table></figure></p>
+<p>Step 2: 输入下面命令计算声子谱。</p>
+<p>Step 3: 通过下面两个命令使用phonopy-bandplot脚本可直接画出声子谱或得到文本格式的声子谱数据。<br><code>phonopy-bandplot</code><br><code>phonopy-bandplot --gnuplot &gt;PhononBAND.dat</code></p>
+<p><div align="center">
+![](image/NaCl_phonon.png)
+</div></p>
+<h3 id="计算声子谱态密度和体系热力学性质"><a href="#计算声子谱态密度和体系热力学性质" class="headerlink" title="计算声子谱态密度和体系热力学性质"></a>计算声子谱态密度和体系热力学性质</h3><p>step 1:新建mesh.conf文件。</p>
+<p><font color="#00ffff">mesh.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">MP = 8 8 8</span><br><span class="line">FORCE_CONSTANTS = READ</span><br></pre></td></tr></table></figure></p>
+<p>step 2:使用下面的命令计算体系声子谱的态密度。<br><code>phonopy -p mesh.conf -c POSCAR-unitcell</code><br><img src="/2019/07/09/Phonopy-study/phonon_DOS.png" alt=""><br>step 3:使用下面的命令计算体系的热力学性质(自由能，零点能，熵，热容)。<br><code>phonopy -t -p mesh.conf -c POSCAR-unitcell &gt;thermal_properties.dat</code><br><img src="/2019/07/09/Phonopy-study/thermal_properties.png" alt=""></p>
 
       
     </div>
@@ -313,7 +327,7 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/characterization/">characterization</a>
+    <a class="article-category-link" href="/categories/calculation/">calculation</a>
     </div>
 
 
@@ -341,7 +355,7 @@
   
     <div class="article-meta">
       <a  href="/2019/07/09/enjoy-life/" class="article-date">
-      <time datetime="2019-07-09T05:30:49.363Z" itemprop="datePublished">2019-07-09</time>
+      <time datetime="2019-07-09T13:36:59.480Z" itemprop="datePublished">2019-07-09</time>
 </a>
 
     </div>
@@ -408,76 +422,11 @@
 
 
   
-    <article id="post-blog-construction" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2019/07/09/blog-construction/" class="article-date">
-      <time datetime="2019-07-09T05:30:49.359Z" itemprop="datePublished">2019-07-09</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2019/07/09/blog-construction/">博客搭建与主题来源</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>构建本博客的想法来源于我的好友, <a href="http://regulus.cc/" target="_blank" rel="noopener">Regulus</a>。</p>
-<p>博客挂载于github上，博客搭建的过程中主要按照 <a href="https://www.jianshu.com/p/8938ed6bf6d6" target="_blank" rel="noopener">hexo从零开始到搭建完整</a>文章中的指导构建。</p>
-<p>博客的主题来源于<a href="geeksblog.cc">业余文艺架构师</a>。</p>
-<p>Many Many thanks to all of them. </p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-didv" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a  href="/2019/07/09/didv/" class="article-date">
-      <time datetime="2019-07-09T05:30:49.358Z" itemprop="datePublished">2019-07-09</time>
+      <time datetime="2019-07-09T13:36:59.476Z" itemprop="datePublished">2019-07-09</time>
 </a>
 
     </div>
@@ -554,11 +503,11 @@
 
 
   
-    <article id="post-Phonopy-study" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-blog-construction" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2019/07/09/Phonopy-study/" class="article-date">
-      <time datetime="2019-07-09T05:30:49.355Z" itemprop="datePublished">2019-07-09</time>
+      <a  href="/2019/07/09/blog-construction/" class="article-date">
+      <time datetime="2019-07-09T13:36:59.472Z" itemprop="datePublished">2019-07-09</time>
 </a>
 
     </div>
@@ -572,7 +521,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/2019/07/09/Phonopy-study/">Phonopy study</a>
+      <a  class="article-title" href="/2019/07/09/blog-construction/">博客搭建与主题来源</a>
     </h1>
   
 
@@ -583,24 +532,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Phonopy的学习主要参照官网的内容: <a href="https://atztogo.github.io/phonopy" target="_blank" rel="noopener">https://atztogo.github.io/phonopy</a></p>
-<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code><br><img src="/2019/07/09/Phonopy-study/phonopy_path.png" alt=""></p>
-<h2 id="Phonopy-使用"><a href="#Phonopy-使用" class="headerlink" title="Phonopy 使用"></a>Phonopy 使用</h2><p>依据官网的教程，使用VASP和Phonopy进行结构热力学性质和声子谱等一系列性质的计算，并同官网的结果相检验。</p>
-<h3 id="使用VASP-DFPT计算结构力常数"><a href="#使用VASP-DFPT计算结构力常数" class="headerlink" title="使用VASP-DFPT计算结构力常数"></a>使用VASP-DFPT计算结构力常数</h3><p>计算力常数是计算结构声子性质的第一步。<br>Step 1:准备需要计算到结构的VASP输入文件，此处命名为POSCAR-unitcell。（一般为已经优化完成的结构）</p>
-<p><font color="#00ffff">POSCAR-unitcell</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NaCl</span><br><span class="line">   1.00000000000000</span><br><span class="line">     5.6903014761756712    0.0000000000000000    0.0000000000000000</span><br><span class="line">     0.0000000000000000    5.6903014761756712    0.0000000000000000</span><br><span class="line">     0.0000000000000000    0.0000000000000000    5.6903014761756712</span><br><span class="line">   4   4</span><br><span class="line">Direct</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.5000000000000000</span><br></pre></td></tr></table></figure></p>
-<p>使用下面命令生成2x2x2的超胞SPOSCAR文件，包含位移信息的disp.yaml文件，以及对应各个原子各个方向位移的POSCAR-{number}文件。<br><code>phonopy -d --dim=&quot;2 2 2&quot; -c POSCAR-unitcell</code><br>将超胞SPOSCAR重命名为POSCAR作为VASP的输入文件计算体系力常数。用超胞进行计算能获得更准确到结果。<br><code>mv SPOSCAR POSCAR</code><br>Step 2: 用IBRION = 8 和 NSW = 1计算体系力常数。为使受力计算更准确，提高电子步迭代收敛要求（EDIFF = 1E-8，并将是空间积分LREAL设为FALSE。具体INCAR如下。</p>
-<p><font color="#00ffff">INCAR</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PREC = Accurate</span><br><span class="line">ENCUT = 500</span><br><span class="line">IBRION = 8</span><br><span class="line">EDIFF = 1.0e-08</span><br><span class="line">IALGO = 38</span><br><span class="line">ISMEAR = 0; SIGMA = 0.01</span><br><span class="line">LREAL = .FALSE.</span><br><span class="line">ADDGRID = .TRUE.</span><br><span class="line">LWAVE = .FALSE.</span><br><span class="line">LCHARG = .FALSE.</span><br></pre></td></tr></table></figure></p>
-<p>准备好KPOINTS和POTCAR文件就可以进行VASP计算了，计算后用下面的命令检查是否存在虚頻（此处存在虚頻，是因为我们直接用的官网的POSCAR，该结构没有用我们计算用到VASP版本进行优化）。<br><code>grep &#39;cm-1&#39; OUTCAR</code><br>Step 3: 用下面到命令从输出文件vasprun.xml得到包含力常数的文件FORCE_CONSTANTS。<br><code>phonopy --fc vasprun.xml</code></p>
-<h3 id="计算声子谱"><a href="#计算声子谱" class="headerlink" title="计算声子谱"></a>计算声子谱</h3><p>Step 1: 新建band.conf文件，设定计算声子谱的参数。由于我们关心的是POSCAR-unitcell的声子性质，而计算受力时是用超胞进行计算，所以在band.conf中需要注明DIM = 2 2 2，而在step2和step3计算时用参数 -c POSCAR-unitcell使计算的结果对应扩胞前的结构。</p>
-<p><font color="#00ffff">band.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">PRIMITIVE_AXIS = 0 0.5 0.5 0.5 0 0.5 0.5 0.5 0</span><br><span class="line">FORCE_CONSTANTS = READ</span><br><span class="line">BAND = 	 0.00  0.00  0.00 0.50  0.00  0.00 0.50  0.50  0.00 0.00  0.00  0.00 0.50  0.50  0.50</span><br><span class="line">BAND_POINTS = 200</span><br></pre></td></tr></table></figure></p>
-<p>Step 2: 输入下面命令计算声子谱。</p>
-<p>Step 3: 通过下面两个命令使用phonopy-bandplot脚本可直接画出声子谱或得到文本格式的声子谱数据。<br><code>phonopy-bandplot</code><br><code>phonopy-bandplot --gnuplot &gt;PhononBAND.dat</code></p>
-<p><div align="center">
-![](image/NaCl_phonon.png)
-</div></p>
-<h3 id="计算声子谱态密度和体系热力学性质"><a href="#计算声子谱态密度和体系热力学性质" class="headerlink" title="计算声子谱态密度和体系热力学性质"></a>计算声子谱态密度和体系热力学性质</h3><p>step 1:新建mesh.conf文件。</p>
-<p><font color="#00ffff">mesh.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">MP = 8 8 8</span><br><span class="line">FORCE_CONSTANTS = READ</span><br></pre></td></tr></table></figure></p>
-<p>step 2:使用下面的命令计算体系声子谱的态密度。<br><code>phonopy -p mesh.conf -c POSCAR-unitcell</code><br><img src="/2019/07/09/Phonopy-study/phonon_DOS.png" alt=""><br>step 3:使用下面的命令计算体系的热力学性质。<br><code>phonopy -t -p mesh.conf -c POSCAR-unitcell &gt;thermal_properties.dat</code><br><img src="/2019/07/09/Phonopy-study/thermal_properties.png" alt=""></p>
+        <p>构建本博客的想法来源于我的好友, <a href="http://regulus.cc/" target="_blank" rel="noopener">Regulus</a>。</p>
+<p>博客挂载于github上，博客搭建的过程中主要按照 <a href="https://www.jianshu.com/p/8938ed6bf6d6" target="_blank" rel="noopener">hexo从零开始到搭建完整</a>文章中的指导构建。</p>
+<p>博客的主题来源于<a href="geeksblog.cc">业余文艺架构师</a>。</p>
+<p>Many Many thanks to all of them. </p>
 
       
     </div>
@@ -609,7 +544,75 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/calculation/">calculation</a>
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-LEEDpat" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2019/07/09/LEEDpat/" class="article-date">
+      <time datetime="2019-07-09T13:36:59.468Z" itemprop="datePublished">2019-07-09</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2019/07/09/LEEDpat/">晶体表面吸附物LEED表征</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="使用LEEDpat通过吸附矩阵模拟LEED图案"><a href="#使用LEEDpat通过吸附矩阵模拟LEED图案" class="headerlink" title="使用LEEDpat通过吸附矩阵模拟LEED图案"></a>使用LEEDpat通过吸附矩阵模拟LEED图案</h2><p>LEEDpat软件可以直接从网上下载，直接安装即可。<br>使用方法：   </p>
+<ul>
+<li>根据表面基底晶格的对称性设定2D lattice/group, 如fcc(111)面的空间群为p3m1。   </li>
+<li>根据分子或原子的吸附矩阵设定 Matrix。</li>
+<li>勾选Include domains，Paint domains。</li>
+<li>放大或者缩小模拟的LEED pattern使尺寸合适。<br>重复文献<a href="https:/pubs.rsc.org/en/content/articlelanding/2018/NR/C8NR02237B#!divAbstract" target="_blank" rel="noopener">Re-evaluating how charge transfer modifies the conformation of adsorbed molecules</a>中的LEED模拟, 结果如图所示:<br><img src="/2019/07/09/LEEDpat/LEED_pat.png" alt=""></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/characterization/">characterization</a>
     </div>
 
 
