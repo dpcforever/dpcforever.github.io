@@ -273,7 +273,7 @@
   
     <div class="article-meta">
       <a  href="/2020/02/28/SXRD/" class="article-date">
-      <time datetime="2020-02-28T10:58:34.514Z" itemprop="datePublished">2020-02-28</time>
+      <time datetime="2020-02-28T11:20:04.862Z" itemprop="datePublished">2020-02-28</time>
 </a>
 
     </div>
@@ -287,7 +287,7 @@
       
           
         <p>Surface x-ray diffraction</p>
-<script type="math/tex; mode=display">\rho(r,E)=\sum|\psi_\mu(r，E)|^2\delta(E_\mu-E)</script>
+
       
     </div>
     
@@ -315,11 +315,11 @@
 
 
   
-    <article id="post-enjoy-life" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-blog-construction" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/01/15/enjoy-life/" class="article-date">
-      <time datetime="2020-01-15T21:54:08.355Z" itemprop="datePublished">2020-01-15</time>
+      <a  href="/2020/02/28/blog-construction/" class="article-date">
+      <time datetime="2020-02-28T10:42:24.135Z" itemprop="datePublished">2020-02-28</time>
 </a>
 
     </div>
@@ -333,7 +333,153 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/2020/01/15/enjoy-life/">Enjoy Life</a>
+      <a  class="article-title" href="/2020/02/28/blog-construction/">博客搭建与主题来源</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>构建本博客的想法来源于我的好友, <a href="http://regulus.cc/" target="_blank" rel="noopener">Regulus</a>。</p>
+<p>博客挂载于github上，博客搭建的过程中主要按照 <a href="https://www.jianshu.com/p/8938ed6bf6d6" target="_blank" rel="noopener">hexo从零开始到搭建完整</a>文章中的指导构建。</p>
+<p>博客的主题来源于<a href="geeksblog.cc">业余文艺架构师</a>。</p>
+<p>Many Many thanks to all of them. </p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-didv" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/02/28/didv/" class="article-date">
+      <time datetime="2020-02-28T10:42:24.135Z" itemprop="datePublished">2020-02-28</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/02/28/didv/">Simulation of dI/dV spectrum and mapping</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="dI-dV-对应于LDOS"><a href="#dI-dV-对应于LDOS" class="headerlink" title="dI/dV 对应于LDOS"></a>dI/dV 对应于LDOS</h2><p>STM 表征中dI/dV直接与理论计算中局域电子态密度LDOS相对应，LDOS为空间坐标和能量的函数$\rho(r,E)$，dI/dV谱对应特定位置r0的LDOS分布$\rho(r_0,E)$,dI/dV mapping 对应特定能量的DOS的空间分布$\rho(r,E_0)$。<br>LDOS定义为：</p>
+<script type="math/tex; mode=display">\rho(r,E)=\sum|\psi_\mu(r，E)|^2\delta(E_\mu-E)</script><p>即能量为E的电子态的空间概率分布。回想VASP中模拟STM图的过程正是将$E_F$至$E_F-eV$范围内的态密度进行叠加，我们也可以通过类似的过程进行di/dV模拟。<br><strong> 整个计算过程包括 </strong>  </p>
+<ul>
+<li>计算体系的DOSCAR文件，确定DOS中态密度范围  </li>
+<li>计算DOS中态密度下限至不同能量区间$E_i$的积分LDOS对应得PARCHG文件</li>
+<li>对PARCHG文件进行分析，获得特定位置积分LDOS,并微分得LDOS<h2 id="计算体系的DOSCAR文件，确定DOS中态密度范围"><a href="#计算体系的DOSCAR文件，确定DOS中态密度范围" class="headerlink" title="计算体系的DOSCAR文件，确定DOS中态密度范围"></a>计算体系的DOSCAR文件，确定DOS中态密度范围</h2>DOS 计算得时候参数和静态计算一致，只不过得加上LORBIT=10或11。<br><font color="#00ffff">INCAR</font><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ISTART = 0  </span><br><span class="line">ICHARG = 2            </span><br><span class="line">PREC = Accurate</span><br><span class="line">ENCUT = 480</span><br><span class="line">EDIFF = 1.0e-06</span><br><span class="line">ALGO = Fast</span><br><span class="line">ISMEAR = 0; SIGMA = 0.01</span><br><span class="line">LREAL = .FALSE.</span><br><span class="line">LCHARG = .TRUE.</span><br><span class="line">LAECHG = .TRUE.</span><br><span class="line">LORBIT = 10</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>计算得到的DOSCAR包含了DOS信息，其中DOS是通过积分DOS微分而来。<br><img src="/2020/02/28/didv/3M_grahene_DOS.png" alt=""><br>用p4v软件将DOSCAR作图获得DOS图。(直接打开DOSCAR获得的DOS图费米能级未移到横坐标0的位置，而打开vasprun.xml获得的DOS图费米能级位于0)<br><img src="/2020/02/28/didv/3M_graphene_DOS_p4v.png" alt=""><br>由图可知，DOS中态密度不为零的能量范围为(-20，6)。(此处费米能级位于0的位置)</p>
+<h2 id="计算积分LDOS"><a href="#计算积分LDOS" class="headerlink" title="计算积分LDOS"></a>计算积分LDOS</h2><p>复制上述DOS计算后的文件夹，并进入该文件夹，用下面的脚本进行积分LDOS的计算。</p>
+<p><font color="#00ffff">Shell script for PARCHG calculation</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">for i in &#123;1..260&#125;</span><br><span class="line">do</span><br><span class="line">Vi=-20</span><br><span class="line">Vf=$(echo &quot;scale=2; -20+26/260*$i&quot;|bc)</span><br><span class="line">echo $i  $Vi $Vf</span><br><span class="line">cat &gt;INCAR&lt;&lt;!</span><br><span class="line">   ISTART = 1            </span><br><span class="line">   ICHARG = 0            </span><br><span class="line">   ENMAX  = 480                                 </span><br><span class="line">   ISMEAR = 0 ;SIGMA = 0.01                   </span><br><span class="line">   ALGO= Fast                                      </span><br><span class="line">   PREC = Single                                 </span><br><span class="line">   IVDW = 11                                     </span><br><span class="line">   EDIFF = 1E-4          </span><br><span class="line"></span><br><span class="line"> partial charge densities:</span><br><span class="line">   LPARD = .TRUE.</span><br><span class="line">   LSEPK = .FALSE.</span><br><span class="line">   LSEPB = .FALSE.</span><br><span class="line">   NBMOD = -3 % Vi and Vf are vs. fermi energy</span><br><span class="line">   EINT = $Vi $Vf</span><br><span class="line"></span><br><span class="line">mechine:</span><br><span class="line">   LPLANE = .TRUE</span><br><span class="line">   NCORE = 8</span><br><span class="line">   NSIM = 4</span><br><span class="line">!</span><br><span class="line">mpirun -np 32 vasp_std</span><br><span class="line">mv PARCHG $i-PARCHG_$Vf</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p>该脚本计算得到-20 到-19.9, 19.8, 19.7…5.8, 5.9, 6.0的260个能量范围的空间态密度积分，对应得文件为1-PARCHG<em>-19.9, 2-PARCHG</em>-19.8 … 259-PARCHG_5.9, 260-PARCHG_6.0。<br>PARCHG 记录了Vi至Vf区间态密度的积分。   </p>
+<script type="math/tex; mode=display">\int_{Vi}^{Vf}\rho(r,E)dE =\int_{Vi}^{Vf}|\psi_\mu(r，E_\mu)|^2 dE</script><p>这其实是个空间坐标的函数，在PARCHG中以一个三维矩阵记录态密度信息。<br><img src="/2020/02/28/didv/3M_graphene_PARCHG.png" alt=""><br>该文件中将Unit cell 分成84x84x140的空间格子，并将各个格子内的态密度与unite cell体积的乘积在PARCHG中记录，记录的顺序为(1,0,0)(2,0,0)…(84,0,0)(0,1,0)…(84,84,0)(0,0,1)…(84,84,140)   </p>
+<h2 id="计算LDOS谱和LDOS-mapping"><a href="#计算LDOS谱和LDOS-mapping" class="headerlink" title="计算LDOS谱和LDOS mapping"></a>计算LDOS谱和LDOS mapping</h2><p>LDOS谱的计算需要选定空间位置r,此处我们选择距离分子中心高度为$2\overset{\circ}{A}$的位置，对应的分数坐标为：0.5508 0.6530 0.3203，对应的空间网格为46 55 46，对应PARCHG中第(46-1)x84x84+(55-1)x84 +46=322102个数据，PARCHG中密度数据记录是按照一行十列，因此位于第32210行，第2列。按照下面的脚本可以从计算的i-PARCHG-Vf 文件中读取该点的数据，获得该位置积分LDOS曲线。</p>
+<p><font color="#00ffff">dIdV_dataAnalyse</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">rm LDOS_data</span><br><span class="line">e=0.01</span><br><span class="line">for i in &#123;1..260&#125;</span><br><span class="line">do</span><br><span class="line">Vi=-20</span><br><span class="line">Vf=$(echo &quot;scale=2; -20+26/260*$i&quot;|bc)</span><br><span class="line">LDOS=$(awk -v line=$(awk  &apos;/84   84  140/&#123;print NR&#125;&apos; $i-PARCHG_$Vf) &apos;&#123;if(NR==line+32210)&#123;print $2&#125;&#125;&apos; $i-PARCHG_$Vf) </span><br><span class="line">echo $Vf $LDOS &gt;&gt;LDOS_data</span><br><span class="line">echo $i $Vf $LD0S</span><br><span class="line">done</span><br><span class="line">gnuplot</span><br><span class="line">plot LDOS_data</span><br></pre></td></tr></table></figure></p>
+<p>在origin或者matlab中对LDOS_data中的数据进行作图获得积分LDOS曲线，作图的时候数据除去了Unit cell 的体积。<br><img src="/2020/02/28/didv/3M_graphene_intDOS_origin.bmp" alt=""><br>进行微分可获得LDOS曲线<br><img src="/2020/02/28/didv/3M_graphene_DOS_origin.bmp" alt=""></p>
+<h2 id="LDOS-maping"><a href="#LDOS-maping" class="headerlink" title="LDOS maping"></a>LDOS maping</h2><p>dI/dV mapping 对应特定能量的LDOS的空间分布$\rho(r,E_0)$可以通过下面的公式求得：</p>
+<script type="math/tex; mode=display">\rho(r,E_0)=\frac{\int_{E_0-\varepsilon}^{E_0+\varepsilon}\rho(r,E)dE}{2\varepsilon}</script><p>通过下面的脚本可以计算上式积分部分，计算时需要给定$E_0$和极小值$\varepsilon$。</p>
+<p><font color="#00ffff">计算$E0±\varepsilon$范围电子态密度空间分布</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">E0=-2</span><br><span class="line">for e in 0.005  0.01 0.025 0.05 0.075</span><br><span class="line">do</span><br><span class="line">Vi=$(echo &quot;scale=6; $E0-$e&quot;|bc)</span><br><span class="line">Vf=$(echo &quot;scale=6; $E0+$e&quot;|bc)</span><br><span class="line">echo $Vi $Vf</span><br><span class="line">cat &gt;INCAR&lt;&lt;!</span><br><span class="line">   ISTART = 1            </span><br><span class="line">   ICHARG = 0            </span><br><span class="line">   ENMAX  = 480                                     </span><br><span class="line">   ISMEAR = 0 ;SIGMA = 0.01                      </span><br><span class="line">   ALGO= Fast                                      </span><br><span class="line">   PREC = Single                                 </span><br><span class="line">   IVDW = 11                                       </span><br><span class="line">   EDIFF = 1E-4          </span><br><span class="line"></span><br><span class="line"> partial charge densities:</span><br><span class="line">   LPARD = .TRUE.</span><br><span class="line">   LSEPK = .FALSE.</span><br><span class="line">   LSEPB = .FALSE.</span><br><span class="line">   NBMOD = -3</span><br><span class="line">   EINT = $Vi $Vf</span><br><span class="line"></span><br><span class="line">mechine:</span><br><span class="line">   LPLANE = .TRUE</span><br><span class="line">   NCORE = 8</span><br><span class="line">   NSIM = 4</span><br><span class="line">!</span><br><span class="line">echo &quot;EINT = $i &quot;;  mpirun -np 48 vasp_std</span><br><span class="line">mv PARCHG PARCHG_$E0_$e</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p>由于分母$2\varepsilon$为常数，所以PARCHG中的数据直接对应$\rho(r,E_0)$,因此直接通过PARCHG可以模拟dI/dV mapping。</p>
+<script type="math/tex; mode=display">\int_{V_F}^{V}|\psi(r，E)|^2 dE</script>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/calculation/">calculation</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-enjoy-life" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/02/28/enjoy-life/" class="article-date">
+      <time datetime="2020-02-28T10:42:24.135Z" itemprop="datePublished">2020-02-28</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/02/28/enjoy-life/">Enjoy Life</a>
     </h1>
   
 
@@ -386,157 +532,11 @@
 
 
   
-    <article id="post-blog-construction" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/01/15/blog-construction/" class="article-date">
-      <time datetime="2020-01-15T21:54:08.352Z" itemprop="datePublished">2020-01-15</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/01/15/blog-construction/">博客搭建与主题来源</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>构建本博客的想法来源于我的好友, <a href="http://regulus.cc/" target="_blank" rel="noopener">Regulus</a>。</p>
-<p>博客挂载于github上，博客搭建的过程中主要按照 <a href="https://www.jianshu.com/p/8938ed6bf6d6" target="_blank" rel="noopener">hexo从零开始到搭建完整</a>文章中的指导构建。</p>
-<p>博客的主题来源于<a href="geeksblog.cc">业余文艺架构师</a>。</p>
-<p>Many Many thanks to all of them. </p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-didv" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/01/15/didv/" class="article-date">
-      <time datetime="2020-01-15T21:54:08.350Z" itemprop="datePublished">2020-01-15</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/01/15/didv/">Simulation of dI/dV spectrum and mapping</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="dI-dV-对应于LDOS"><a href="#dI-dV-对应于LDOS" class="headerlink" title="dI/dV 对应于LDOS"></a>dI/dV 对应于LDOS</h2><p>STM 表征中dI/dV直接与理论计算中局域电子态密度LDOS相对应，LDOS为空间坐标和能量的函数$\rho(r,E)$，dI/dV谱对应特定位置r0的LDOS分布$\rho(r_0,E)$,dI/dV mapping 对应特定能量的DOS的空间分布$\rho(r,E_0)$。<br>LDOS定义为：</p>
-<script type="math/tex; mode=display">\rho(r,E)=\sum|\psi_\mu(r，E)|^2\delta(E_\mu-E)</script><p>即能量为E的电子态的空间概率分布。回想VASP中模拟STM图的过程正是将$E_F$至$E_F-eV$范围内的态密度进行叠加，我们也可以通过类似的过程进行di/dV模拟。<br><strong> 整个计算过程包括 </strong>  </p>
-<ul>
-<li>计算体系的DOSCAR文件，确定DOS中态密度范围  </li>
-<li>计算DOS中态密度下限至不同能量区间$E_i$的积分LDOS对应得PARCHG文件</li>
-<li>对PARCHG文件进行分析，获得特定位置积分LDOS,并微分得LDOS<h2 id="计算体系的DOSCAR文件，确定DOS中态密度范围"><a href="#计算体系的DOSCAR文件，确定DOS中态密度范围" class="headerlink" title="计算体系的DOSCAR文件，确定DOS中态密度范围"></a>计算体系的DOSCAR文件，确定DOS中态密度范围</h2>DOS 计算得时候参数和静态计算一致，只不过得加上LORBIT=10或11。<br><font color="#00ffff">INCAR</font><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ISTART = 0  </span><br><span class="line">ICHARG = 2            </span><br><span class="line">PREC = Accurate</span><br><span class="line">ENCUT = 480</span><br><span class="line">EDIFF = 1.0e-06</span><br><span class="line">ALGO = Fast</span><br><span class="line">ISMEAR = 0; SIGMA = 0.01</span><br><span class="line">LREAL = .FALSE.</span><br><span class="line">LCHARG = .TRUE.</span><br><span class="line">LAECHG = .TRUE.</span><br><span class="line">LORBIT = 10</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>计算得到的DOSCAR包含了DOS信息，其中DOS是通过积分DOS微分而来。<br><img src="/2020/01/15/didv/3M_grahene_DOS.png" alt=""><br>用p4v软件将DOSCAR作图获得DOS图。(直接打开DOSCAR获得的DOS图费米能级未移到横坐标0的位置，而打开vasprun.xml获得的DOS图费米能级位于0)<br><img src="/2020/01/15/didv/3M_graphene_DOS_p4v.png" alt=""><br>由图可知，DOS中态密度不为零的能量范围为(-20，6)。(此处费米能级位于0的位置)</p>
-<h2 id="计算积分LDOS"><a href="#计算积分LDOS" class="headerlink" title="计算积分LDOS"></a>计算积分LDOS</h2><p>复制上述DOS计算后的文件夹，并进入该文件夹，用下面的脚本进行积分LDOS的计算。</p>
-<p><font color="#00ffff">Shell script for PARCHG calculation</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">for i in &#123;1..260&#125;</span><br><span class="line">do</span><br><span class="line">Vi=-20</span><br><span class="line">Vf=$(echo &quot;scale=2; -20+26/260*$i&quot;|bc)</span><br><span class="line">echo $i  $Vi $Vf</span><br><span class="line">cat &gt;INCAR&lt;&lt;!</span><br><span class="line">   ISTART = 1            </span><br><span class="line">   ICHARG = 0            </span><br><span class="line">   ENMAX  = 480                                 </span><br><span class="line">   ISMEAR = 0 ;SIGMA = 0.01                   </span><br><span class="line">   ALGO= Fast                                      </span><br><span class="line">   PREC = Single                                 </span><br><span class="line">   IVDW = 11                                     </span><br><span class="line">   EDIFF = 1E-4          </span><br><span class="line"></span><br><span class="line"> partial charge densities:</span><br><span class="line">   LPARD = .TRUE.</span><br><span class="line">   LSEPK = .FALSE.</span><br><span class="line">   LSEPB = .FALSE.</span><br><span class="line">   NBMOD = -3 % Vi and Vf are vs. fermi energy</span><br><span class="line">   EINT = $Vi $Vf</span><br><span class="line"></span><br><span class="line">mechine:</span><br><span class="line">   LPLANE = .TRUE</span><br><span class="line">   NCORE = 8</span><br><span class="line">   NSIM = 4</span><br><span class="line">!</span><br><span class="line">mpirun -np 32 vasp_std</span><br><span class="line">mv PARCHG $i-PARCHG_$Vf</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
-<p>该脚本计算得到-20 到-19.9, 19.8, 19.7…5.8, 5.9, 6.0的260个能量范围的空间态密度积分，对应得文件为1-PARCHG<em>-19.9, 2-PARCHG</em>-19.8 … 259-PARCHG_5.9, 260-PARCHG_6.0。<br>PARCHG 记录了Vi至Vf区间态密度的积分。   </p>
-<script type="math/tex; mode=display">\int_{Vi}^{Vf}\rho(r,E)dE =\int_{Vi}^{Vf}|\psi_\mu(r，E_\mu)|^2 dE</script><p>这其实是个空间坐标的函数，在PARCHG中以一个三维矩阵记录态密度信息。<br><img src="/2020/01/15/didv/3M_graphene_PARCHG.png" alt=""><br>该文件中将Unit cell 分成84x84x140的空间格子，并将各个格子内的态密度与unite cell体积的乘积在PARCHG中记录，记录的顺序为(1,0,0)(2,0,0)…(84,0,0)(0,1,0)…(84,84,0)(0,0,1)…(84,84,140)   </p>
-<h2 id="计算LDOS谱和LDOS-mapping"><a href="#计算LDOS谱和LDOS-mapping" class="headerlink" title="计算LDOS谱和LDOS mapping"></a>计算LDOS谱和LDOS mapping</h2><p>LDOS谱的计算需要选定空间位置r,此处我们选择距离分子中心高度为$2\overset{\circ}{A}$的位置，对应的分数坐标为：0.5508 0.6530 0.3203，对应的空间网格为46 55 46，对应PARCHG中第(46-1)x84x84+(55-1)x84 +46=322102个数据，PARCHG中密度数据记录是按照一行十列，因此位于第32210行，第2列。按照下面的脚本可以从计算的i-PARCHG-Vf 文件中读取该点的数据，获得该位置积分LDOS曲线。</p>
-<p><font color="#00ffff">dIdV_dataAnalyse</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">rm LDOS_data</span><br><span class="line">e=0.01</span><br><span class="line">for i in &#123;1..260&#125;</span><br><span class="line">do</span><br><span class="line">Vi=-20</span><br><span class="line">Vf=$(echo &quot;scale=2; -20+26/260*$i&quot;|bc)</span><br><span class="line">LDOS=$(awk -v line=$(awk  &apos;/84   84  140/&#123;print NR&#125;&apos; $i-PARCHG_$Vf) &apos;&#123;if(NR==line+32210)&#123;print $2&#125;&#125;&apos; $i-PARCHG_$Vf) </span><br><span class="line">echo $Vf $LDOS &gt;&gt;LDOS_data</span><br><span class="line">echo $i $Vf $LD0S</span><br><span class="line">done</span><br><span class="line">gnuplot</span><br><span class="line">plot LDOS_data</span><br></pre></td></tr></table></figure></p>
-<p>在origin或者matlab中对LDOS_data中的数据进行作图获得积分LDOS曲线，作图的时候数据除去了Unit cell 的体积。<br><img src="/2020/01/15/didv/3M_graphene_intDOS_origin.bmp" alt=""><br>进行微分可获得LDOS曲线<br><img src="/2020/01/15/didv/3M_graphene_DOS_origin.bmp" alt=""></p>
-<h2 id="LDOS-maping"><a href="#LDOS-maping" class="headerlink" title="LDOS maping"></a>LDOS maping</h2><p>dI/dV mapping 对应特定能量的LDOS的空间分布$\rho(r,E_0)$可以通过下面的公式求得：</p>
-<script type="math/tex; mode=display">\rho(r,E_0)=\frac{\int_{E_0-\varepsilon}^{E_0+\varepsilon}\rho(r,E)dE}{2\varepsilon}</script><p>通过下面的脚本可以计算上式积分部分，计算时需要给定$E_0$和极小值$\varepsilon$。</p>
-<p><font color="#00ffff">计算$E0±\varepsilon$范围电子态密度空间分布</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">E0=-2</span><br><span class="line">for e in 0.005  0.01 0.025 0.05 0.075</span><br><span class="line">do</span><br><span class="line">Vi=$(echo &quot;scale=6; $E0-$e&quot;|bc)</span><br><span class="line">Vf=$(echo &quot;scale=6; $E0+$e&quot;|bc)</span><br><span class="line">echo $Vi $Vf</span><br><span class="line">cat &gt;INCAR&lt;&lt;!</span><br><span class="line">   ISTART = 1            </span><br><span class="line">   ICHARG = 0            </span><br><span class="line">   ENMAX  = 480                                     </span><br><span class="line">   ISMEAR = 0 ;SIGMA = 0.01                      </span><br><span class="line">   ALGO= Fast                                      </span><br><span class="line">   PREC = Single                                 </span><br><span class="line">   IVDW = 11                                       </span><br><span class="line">   EDIFF = 1E-4          </span><br><span class="line"></span><br><span class="line"> partial charge densities:</span><br><span class="line">   LPARD = .TRUE.</span><br><span class="line">   LSEPK = .FALSE.</span><br><span class="line">   LSEPB = .FALSE.</span><br><span class="line">   NBMOD = -3</span><br><span class="line">   EINT = $Vi $Vf</span><br><span class="line"></span><br><span class="line">mechine:</span><br><span class="line">   LPLANE = .TRUE</span><br><span class="line">   NCORE = 8</span><br><span class="line">   NSIM = 4</span><br><span class="line">!</span><br><span class="line">echo &quot;EINT = $i &quot;;  mpirun -np 48 vasp_std</span><br><span class="line">mv PARCHG PARCHG_$E0_$e</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
-<p>由于分母$2\varepsilon$为常数，所以PARCHG中的数据直接对应$\rho(r,E_0)$,因此直接通过PARCHG可以模拟dI/dV mapping。</p>
-<script type="math/tex; mode=display">\int_{V_F}^{V}|\psi(r，E)|^2 dE</script>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/calculation/">calculation</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-LEEDpat" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/01/15/LEEDpat/" class="article-date">
-      <time datetime="2020-01-15T21:54:08.335Z" itemprop="datePublished">2020-01-15</time>
+      <a  href="/2020/02/28/LEEDpat/" class="article-date">
+      <time datetime="2020-02-28T10:42:24.131Z" itemprop="datePublished">2020-02-28</time>
 </a>
 
     </div>
@@ -550,7 +550,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/2020/01/15/LEEDpat/">晶体表面吸附物LEED表征</a>
+      <a  class="article-title" href="/2020/02/28/LEEDpat/">晶体表面吸附物LEED表征</a>
     </h1>
   
 
@@ -566,7 +566,7 @@
 <li>根据表面基底晶格的对称性设定2D lattice/group, 如fcc(111)面的空间群为p3m1。   </li>
 <li>根据分子或原子的吸附矩阵设定 Matrix。</li>
 <li>勾选Include domains，Paint domains。</li>
-<li>放大或者缩小模拟的LEED pattern使尺寸合适。<br>重复文献<a href="https:/pubs.rsc.org/en/content/articlelanding/2018/NR/C8NR02237B#!divAbstract" target="_blank" rel="noopener">Re-evaluating how charge transfer modifies the conformation of adsorbed molecules</a>中的LEED模拟, 结果如图所示:<br><img src="/2020/01/15/LEEDpat/LEED_pat.png" alt=""></li>
+<li>放大或者缩小模拟的LEED pattern使尺寸合适。<br>重复文献<a href="https:/pubs.rsc.org/en/content/articlelanding/2018/NR/C8NR02237B#!divAbstract" target="_blank" rel="noopener">Re-evaluating how charge transfer modifies the conformation of adsorbed molecules</a>中的LEED模拟, 结果如图所示:<br><img src="/2020/02/28/LEEDpat/LEED_pat.png" alt=""></li>
 </ul>
 
       
@@ -603,8 +603,8 @@
     <article id="post-Phonopy-study" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/01/15/Phonopy-study/" class="article-date">
-      <time datetime="2020-01-15T21:54:08.334Z" itemprop="datePublished">2020-01-15</time>
+      <a  href="/2020/02/28/Phonopy-study/" class="article-date">
+      <time datetime="2020-02-28T10:42:24.131Z" itemprop="datePublished">2020-02-28</time>
 </a>
 
     </div>
@@ -618,7 +618,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/2020/01/15/Phonopy-study/">Phonopy study</a>
+      <a  class="article-title" href="/2020/02/28/Phonopy-study/">Phonopy study</a>
     </h1>
   
 
@@ -630,7 +630,7 @@
       
           
         <p>Phonopy的学习主要参照官网的内容: <a href="https://atztogo.github.io/phonopy" target="_blank" rel="noopener">https://atztogo.github.io/phonopy</a></p>
-<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code><br><img src="/2020/01/15/Phonopy-study/phonopy_path.png" alt=""></p>
+<h2 id="Phonopy-安装"><a href="#Phonopy-安装" class="headerlink" title="Phonopy 安装"></a>Phonopy 安装</h2><p>Step 1: 安装Phonopy 所需的phonon环境包。<br><code>sudo apt-get install python-dev python-numpy  python-matplotlib python-yaml python-h5py</code><br>Step 2: 在 <a href="https://pypi.org/project/phonopy/#files" target="_blank" rel="noopener">https://pypi.org/project/phonopy/#files</a> 中下载phonopy安装包phonopy-1.13.2.32.tar.gz。然后解压该软件，进入解压后的目录打开终端，输入下面的代码进行phonopy安装即可。<br><code>sudo python setup.py install</code><br>Step 3：查看phonopy位置，如输出phonopy的路径即安装成功。<br><code>which phonopy</code><br><img src="/2020/02/28/Phonopy-study/phonopy_path.png" alt=""></p>
 <h2 id="Phonopy-使用"><a href="#Phonopy-使用" class="headerlink" title="Phonopy 使用"></a>Phonopy 使用</h2><p>依据官网的教程，使用VASP和Phonopy进行结构热力学性质和声子谱等一系列性质的计算，并同官网的结果相检验。</p>
 <h3 id="有限位移方法计算结构力常数"><a href="#有限位移方法计算结构力常数" class="headerlink" title="有限位移方法计算结构力常数"></a>有限位移方法计算结构力常数</h3><p>计算力常数是计算结构声子性质的第一步，计算力常数的方法有两种：有限位移方法和密度泛函微扰理论。有限位移方法通过计算结构中各个原子微小位移前后能量的变化获得结构力常数。<br>Step 1:准备需要计算到结构的VASP输入文件，此处命名为POSCAR-unitcell。（一般为已经优化完成的结构）</p>
 <p><font color="#00ffff">POSCAR-unitcell</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NaCl</span><br><span class="line">   1.00000000000000</span><br><span class="line">     5.6903014761756712    0.0000000000000000    0.0000000000000000</span><br><span class="line">     0.0000000000000000    5.6903014761756712    0.0000000000000000</span><br><span class="line">     0.0000000000000000    0.0000000000000000    5.6903014761756712</span><br><span class="line">   4   4</span><br><span class="line">Direct</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.5000000000000000  0.5000000000000000  0.5000000000000000</span><br><span class="line">  0.5000000000000000  0.0000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.5000000000000000  0.0000000000000000</span><br><span class="line">  0.0000000000000000  0.0000000000000000  0.5000000000000000</span><br></pre></td></tr></table></figure></p>
@@ -643,10 +643,10 @@
 <h3 id="计算声子谱"><a href="#计算声子谱" class="headerlink" title="计算声子谱"></a>计算声子谱</h3><p>Step 1: 新建band.conf文件，设定计算声子谱的参数。由于我们关心的是POSCAR-unitcell的声子性质，而计算受力时是用超胞进行计算，所以在band.conf中需要注明DIM = 2 2 2，而在step2和step3计算时用参数 -c POSCAR-unitcell使计算的结果对应扩胞前的结构。</p>
 <p><font color="#00ffff">band.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">PRIMITIVE_AXIS = 0 0.5 0.5 0.5 0 0.5 0.5 0.5 0</span><br><span class="line">FORCE_CONSTANTS = READ</span><br><span class="line">BAND = 	 0.00  0.00  0.00 0.50  0.00  0.00 0.50  0.50  0.00 0.00  0.00  0.00 0.50  0.50  0.50</span><br><span class="line">BAND_POINTS = 200</span><br></pre></td></tr></table></figure></p>
 <p>Step 2: 输入下面命令计算声子谱。</p>
-<p>Step 3: 通过下面两个命令使用phonopy-bandplot脚本可直接画出声子谱或得到文本格式的声子谱数据。<br><code>phonopy-bandplot</code><br><code>phonopy-bandplot --gnuplot &gt;PhononBAND.dat</code><br><img src="/2020/01/15/Phonopy-study/NaCl_phonon.png" alt=""></p>
+<p>Step 3: 通过下面两个命令使用phonopy-bandplot脚本可直接画出声子谱或得到文本格式的声子谱数据。<br><code>phonopy-bandplot</code><br><code>phonopy-bandplot --gnuplot &gt;PhononBAND.dat</code><br><img src="/2020/02/28/Phonopy-study/NaCl_phonon.png" alt=""></p>
 <h3 id="计算声子谱态密度和体系热力学性质"><a href="#计算声子谱态密度和体系热力学性质" class="headerlink" title="计算声子谱态密度和体系热力学性质"></a>计算声子谱态密度和体系热力学性质</h3><p>step 1:新建mesh.conf文件。</p>
 <p><font color="#00ffff">mesh.conf</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ATOM_NAME = Na Cl</span><br><span class="line">DIM = 2 2 2</span><br><span class="line">MP = 8 8 8</span><br><span class="line">FORCE_CONSTANTS = READ</span><br></pre></td></tr></table></figure></p>
-<p>step 2:使用下面的命令计算体系声子谱的态密度。<br><code>phonopy -p mesh.conf -c POSCAR-unitcell</code><br><img src="/2020/01/15/Phonopy-study/phonon_DOS.png" alt=""><br>step 3:使用下面的命令计算体系的热力学性质(自由能，零点能，熵，热容)。<br><code>phonopy -t -p mesh.conf -c POSCAR-unitcell &gt;thermal_properties.dat</code><br><img src="/2020/01/15/Phonopy-study/thermal_properties.png" alt=""></p>
+<p>step 2:使用下面的命令计算体系声子谱的态密度。<br><code>phonopy -p mesh.conf -c POSCAR-unitcell</code><br><img src="/2020/02/28/Phonopy-study/phonon_DOS.png" alt=""><br>step 3:使用下面的命令计算体系的热力学性质(自由能，零点能，熵，热容)。<br><code>phonopy -t -p mesh.conf -c POSCAR-unitcell &gt;thermal_properties.dat</code><br><img src="/2020/02/28/Phonopy-study/thermal_properties.png" alt=""></p>
 
       
     </div>
