@@ -277,7 +277,7 @@
   
     <div class="article-meta">
       <a  href="/2021/12/14/Matlab_code_recorded/" class="article-date">
-      <time datetime="2021-12-13T16:37:17.403Z" itemprop="datePublished">2021-12-14</time>
+      <time datetime="2021-12-13T18:24:49.635Z" itemprop="datePublished">2021-12-14</time>
 </a>
 
     </div>
@@ -303,7 +303,9 @@
       
           
         <h1 id="NIXSW-Simulation"><a href="#NIXSW-Simulation" class="headerlink" title="NIXSW Simulation"></a>NIXSW Simulation</h1><h2 id="NIXSW的原理"><a href="#NIXSW的原理" class="headerlink" title="NIXSW的原理"></a>NIXSW的原理</h2><p>垂直入射X射线驻波技术的原理简单可以概括为： 单色X射线垂直入射晶体表面时，会形成周期与晶面间距相同的驻波，且该驻波从晶体内部延伸至真空，故表面吸附的原子分子亦处在驻波场中，可以通过调节驻波的波长观察原子分子的光电子发射变化，获得原子分子相对驻波场的具体位置，又因驻波的波节（波峰？）的位置与晶面位置一致，故可以确定原子分子与最表层原子的垂直距离，即原子在表面的高度的定量确定。</p>
-<script type="math/tex; mode=display">f_{co}\rm{exp}(\frac{2\pi D}{d_H})=\int_0^{d_H}f(z)\rm{exp}(\frac{2\pi z}{d_H})</script>
+<script type="math/tex; mode=display">f_{co}\rm{exp}(\frac{2\pi D}{d_H})=\int_0^{d_H}f(z)\rm{exp}(\frac{2\pi z}{d_H})</script><p>等式右侧<script type="math/tex">d_H</script>为晶面间距，z为吸附原子相对于驻波波节的距离，即原子在表面的高度，这两个参数可从优化后得模型获得(z在模型中为分立的值，因此实际计算的时候右侧积分会转变为求和的计算)，因此可以通过理论计算的模型获得右侧的值，而左侧D和<script type="math/tex">f_{co}</script>也可通过二元一次方程解得。</p>
+<h2 id="matlab读取DFT优化后结构参数"><a href="#matlab读取DFT优化后结构参数" class="headerlink" title="matlab读取DFT优化后结构参数"></a>matlab读取DFT优化后结构参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">function [Direct2Cartesian, AllElements, Element_Num,Num_Element_PositionD,Num_Element_PositionC_Height] = Read_CONTCAR(NumOftopCu,filename)</span><br><span class="line">%This function is used to read the information of optimized structure from</span><br><span class="line">%VASP calculation.</span><br><span class="line"></span><br><span class="line">%Direct2Cartesian is the matrix to transform the Direct coordinates to</span><br><span class="line">%Cartesian coordiantes, i.e. the lattice parameters of the supercell.</span><br><span class="line"></span><br><span class="line">%ALLElements contains all elemetns in the structure, for F4TCNQ/Cu(111) Cu</span><br><span class="line">%C N F.</span><br><span class="line"></span><br><span class="line">%Element_Num contains the Number of atoms of each element according to the</span><br><span class="line">%order in AllElements.</span><br><span class="line"></span><br><span class="line">%Num_Element_PositionD contains the Direct coordinates of all atoms with</span><br><span class="line">%the same order in CONTCAR</span><br><span class="line"></span><br><span class="line">%,Num_Element_PositionC_Height contains the heights of all atoms with</span><br><span class="line">%the same order in CONTCAR</span><br><span class="line"></span><br><span class="line">%NumOftopCu give  the serial number of top-most atoms .</span><br><span class="line"></span><br><span class="line">%filename the output from VASP, i.e. CONTCAR.</span><br><span class="line"></span><br><span class="line">fid=fopen(filename);</span><br><span class="line">Direct2Cartesian = cell2mat(textscan(fid, &apos;%f %f %f&apos;,3, &apos;Headerlines&apos;, 2,&apos;CollectOutput&apos;,1));</span><br><span class="line">A=textscan(fid, &apos;%s %s %s %s&apos;,1 , &apos;CollectOutput&apos;, 1);</span><br><span class="line">%*****  the number of %s should be changed to be the same as number of elements </span><br><span class="line"></span><br><span class="line">AllElements=A&#123;1,1&#125;;</span><br><span class="line">B=textscan(fid, &apos;%d %d %d %d&apos;,1, &apos;CollectOutput&apos;, 1);</span><br><span class="line">Element_Num=B&#123;1,1&#125;; Total_atoms = sum(Element_Num);</span><br><span class="line">C=textscan(fid, &apos;%f %f %f %*s %*s %*s&apos;,Total_atoms, &apos;Headerlines&apos;, 3, &apos;CollectOutput&apos;,1);</span><br><span class="line">% %*s %*s %*s is to find and ignore &quot;T T T&quot; or &quot;F F F&quot;</span><br><span class="line">% The &apos;Headerlines&apos; has to be 3 not 2.</span><br><span class="line"></span><br><span class="line">AtomsPositionD = C&#123;1,1&#125;; </span><br><span class="line">Num_Element_PositionD=[[1:Total_atoms]&apos;   string([repelem(AllElements, Element_Num)]&apos;)  AtomsPositionD];</span><br><span class="line">AtomsPositionC= AtomsPositionD*Direct2Cartesian; </span><br><span class="line">TopLayerSubHeight=mean(AtomsPositionC(NumOftopCu,3));</span><br><span class="line">Atom_Height= AtomsPositionC(:,3)-TopLayerSubHeight;</span><br><span class="line">disp(Atom_Height)</span><br><span class="line">Num_Element_PositionC_Height=[[1:Total_atoms]&apos;   string([repelem(AllElements, Element_Num)]&apos;)  AtomsPositionC Atom_Height];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fclose(fid);</span><br></pre></td></tr></table></figure>
+<h3 id=""><a href="#" class="headerlink" title="#"></a>#</h3>
       
     </div>
     
@@ -1095,5 +1097,20 @@ MathJax.Hub.Queue(function() {
 
 
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
